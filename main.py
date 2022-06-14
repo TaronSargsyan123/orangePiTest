@@ -1,12 +1,20 @@
+import argparse
+
 import serial
 import socket
 import time
 
-port = 8000
-host = socket.gethostbyname_ex(socket.gethostname())[2][1]
+parser = argparse.ArgumentParser()
+parser.add_argument('-p', '--port', type=int, default=8000, help="Running port")
+parser.add_argument("-i", "--ip", type=str, default='192.168.1.2', help="Ip address")
+parser.add_argument('-s', '--serial', type=str, default='/dev/ttyUSB0', help="Serial port")
+args = parser.parse_args()
+
+port = args.port
+host = args.host
 listensocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-serialcomm = serial.Serial("COM3", 9600)
+serialcomm = serial.Serial(args.serial, 9600)
 serialcomm.timeout = 1
 
 def sendMessage(temp):
