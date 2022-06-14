@@ -11,7 +11,7 @@ parser.add_argument('-s', '--serial', type=str, default='/dev/ttyUSB0', help="Se
 args = parser.parse_args()
 
 port = args.port
-host = args.host
+host = socket.gethostbyname_ex(socket.gethostname())[2][1]
 listensocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 serialcomm = serial.Serial(args.serial, 9600)
